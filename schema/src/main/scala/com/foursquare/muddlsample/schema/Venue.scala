@@ -7,7 +7,7 @@ class Venue extends RecordSchema {
   val id = field[ObjectId](1, "_id").required_!
   val legacyid = field[Long](2, "legid")
   val oauthConsumer = field[ObjectId](3, "oa")
-  val userid = field[Long](4, "uid").required_!
+  val userid = field[Long](4, "userid").required_!
   val venuename = field[String](5, "venuename").required_!
   val keywords = field[String](6, "keywords")
   val address = field[String](7, "address")
