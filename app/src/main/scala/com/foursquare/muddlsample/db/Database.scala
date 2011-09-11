@@ -3,10 +3,10 @@ package com.foursquare.muddlsample.db
 import com.foursquare.muddl.{Record, MetaRecord}
 import com.mongodb.casbah.Imports.{DBObject, MongoCollection}
 
-case class Database[R](
+case class Database[T <: Record[T], R <: T](
     collection: MongoCollection,
     deserialize: DBObject => R,
-    serialize: R => DBObject) {
+    serialize: T => DBObject) {
 
   def find(dbo: DBObject, limit: Int): Seq[R] =
     Vector() ++ collection.find(dbo).limit(limit).map(deserialize)
@@ -16,7 +16,7 @@ case class Database[R](
     if (it.hasNext) Some(it.next) else None
   }
 
-  def save(obj: R): Unit = {
+  def save(obj: T): Unit = {
     collection.save(serialize(obj))
   }
 }

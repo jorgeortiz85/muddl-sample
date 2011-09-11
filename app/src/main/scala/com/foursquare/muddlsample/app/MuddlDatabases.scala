@@ -2,6 +2,7 @@ package com.foursquare.muddlsample.app
 
 import com.foursquare.muddl.DeserializationException
 import com.foursquare.muddlsample.db.{Database, DatabaseConnections}
+import com.foursquare.muddlsample.decorators.NiceVenue
 import com.foursquare.muddlsample.serialization.{MongoDeserializer, MongoSerializer}
 import com.mongodb.casbah.Imports.DBObject
 
@@ -20,5 +21,5 @@ class MuddlDatabases(
   }
 
   val checkins = Database(connections.checkinsDb("checkins"), deserialize(_.newCheckin), serializer.serializeCheckin _)
-  val venues = Database(connections.venuesDb("venues"), deserialize(_.newVenue), serializer.serializeVenue _)
+  val venues = Database(connections.venuesDb("venues"), dbo => new NiceVenue(deserialize(_.newVenue)(dbo)), serializer.serializeVenue _)
 }
