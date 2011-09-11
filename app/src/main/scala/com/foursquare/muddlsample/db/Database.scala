@@ -3,6 +3,10 @@ package com.foursquare.muddlsample.db
 import com.foursquare.muddl.{Record, MetaRecord}
 import com.mongodb.casbah.Imports.{DBObject, MongoCollection}
 
+/**
+ * A thin wrapper around Casbah's MongoCollection that serializes and deserializes Records
+ * into/from DBObjects.
+ */
 case class Database[T <: Record[T], R <: T](
     collection: MongoCollection,
     deserialize: DBObject => R,

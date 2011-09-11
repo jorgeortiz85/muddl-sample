@@ -7,6 +7,10 @@ import java.{util => ju}
 import org.bson.types.ObjectId
 import scalaj.collection.Implicits._
 
+/**
+ * This trait mixes in serializer traits for all of our app's records. It defines serialization
+ * methods for all the types encountered in these records. It is specific to Mongo.
+ */
 class MongoSerializer
     extends CheckinSerializer
     with MentionSerializer

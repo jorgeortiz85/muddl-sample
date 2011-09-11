@@ -6,6 +6,10 @@ import com.foursquare.muddlsample.schema.Checkin
 import com.foursquare.muddlsample.serialization.{MongoSerializer, StrictMongoDeserializer}
 import com.mongodb.casbah.Imports._
 
+/**
+ * An example app that initializes serializers, deserialiers, database connections, and databases,
+ * and uses them to make some simple queries.
+ */
 object MuddlApp {
   def main(args: Array[String]): Unit = {
     val deserializer = new StrictMongoDeserializer

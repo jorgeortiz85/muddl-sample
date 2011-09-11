@@ -3,6 +3,9 @@ package com.foursquare.muddlsample.db
 import com.mongodb.casbah.Imports.MongoConnection
 import com.mongodb.ServerAddress
 
+/**
+ * This class defines database connections for foursquare's staging databases.
+ */
 class DatabaseConnections {
   def serverAddress(hostPort: String): ServerAddress = {
     val parts = hostPort.split(':')

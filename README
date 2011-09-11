@@ -1,0 +1,34 @@
+Muddl Sample
+
+This is a sample app that defines a few schemas (Checkin, Mention, Venue) and can connect to foursquare's staging databases. You'll need to install sbt 0.10.1 to build this project.
+
+Schemas are defined in the schema/ sub-project. In there, SchemaGen is the program that will be run by sbt to generate code.
+
+The app itself lives in the app/ sub-project.
+
+Generated code lives in app/TARGET/scala-2.8.1.final/src_managed/ and is generated as part of the regular compile process. Each generated file has 7 parts:
+1) A Record trait the defines the interface for that record.
+2) A MetaRecord object which defines Field instances for all the fields in the record. These Fields provide compile-time and run-time reflection capabilities.
+3) A Strict class that implements the Record trait, given an object to deserialize and a deserializer for it. This is the main implementation of the Record trait. (You can imagine a Lazy side-kick which only deserializes fields once they are accessed. I'm still experimenting with this.)
+4) A Mutable class that implements the Record trait and adds a setter methods for each field. Field mutations are kept in a _mutations map, so each change can be logged.
+5) A Decorator class that forwards every method call to the given decorated instance.
+6) A Deserializer trait that defines all the methods necessary to deserialize an instance of this Record.
+7) A Serializer trait that defines all the methods necessary to serialize an instance of this Record.
+
+A walk-through of the non-generated code:
+
+* app/build.sbt - this defines a sourceGenerator which runs SchemaGen to generate the extra source code. Source generators run as part of the regular compile process.
+
+* MongoSerializer/MongoDeserializer - they mix in all the different serializers & deserializers and implement all the methods necessary to convert to/from Mongo types and Scala types. You can imagine a JSON counterpart.
+
+* StrictMongoDeserializer - completes the Deserializer definition by providing concrete implementations of the different Records. You can imagine a Lazy counterpart.
+
+* NiceVenue - this decorates Venue with some derived data (addressString) as well as a helper method (mutable). Note that NiceVenue is constructed in a place (MuddlDatabases) where we could easily inject services. Our decorated methods could use services without static references, if we so wanted.
+
+* DatabaseConnections - declares the different staging databases we have.
+
+* Database - a simple façade over Casbah's MongoCollection. It can serialize/deserialize DBObjects to/from Records. In real foursquare code, this would use Rogue queries rather than DBObject queries.
+
+* MuddlDatabases - this is where most of the magic happens. This ties together our Database façade with serializers, deserializers, and decorators. Here is where NiceVenue is instantiated, and we could easily add a ServiceBag reference to it (or something similar).
+
+* MuddlApp - initializes things and does some example queries. Note how checkin queries return Seq[Checkin], whereas venue queries return Seq[NiceVenue] (decorated!).

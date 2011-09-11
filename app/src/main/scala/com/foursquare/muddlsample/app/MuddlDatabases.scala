@@ -6,6 +6,9 @@ import com.foursquare.muddlsample.decorators.NiceVenue
 import com.foursquare.muddlsample.serialization.{MongoDeserializer, MongoSerializer}
 import com.mongodb.casbah.Imports.DBObject
 
+/**
+ * This class brings together database connections, serializers, deserializers, and decorators.
+ */
 class MuddlDatabases(
     connections: DatabaseConnections,
     deserializer: MongoDeserializer,

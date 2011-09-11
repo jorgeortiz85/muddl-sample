@@ -2,6 +2,11 @@ package com.foursquare.muddlsample.decorators
 
 import com.foursquare.muddlsample.schema.{Venue, VenueDecorator, VenueMutable}
 
+/**
+ * This class decorates a Venue with additional derived data or other helpful methods.
+ *
+ * It extends VenueDecorator (and thus, Venue too) to get forwarder methods for free.
+ */
 class NiceVenue(decorated: Venue) extends VenueDecorator(decorated) {
   def addressString: String = {
     "%s (@ %s), %s, %s %s, %s".format(
