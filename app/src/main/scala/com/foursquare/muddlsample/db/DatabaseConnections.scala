@@ -19,12 +19,6 @@ class DatabaseConnections {
   lazy val checkinsDb = MongoConnection(serverAddress("dev-3:27021"))("foursquare")
   lazy val infraDb = MongoConnection(serverAddress("dev-1:27018"))("foursquare")
   lazy val venuesDb = MongoConnection(serverAddresses("dev-4:27019"))("foursquare")
-  // lazy val venuesDb = MongoConnection(serverAddresses("mongotest-shard-0-a:27317|mongotest-shard-0-b:27117|mongotest-shard-0-c:27217"))("foursquare")
-  // lazy val venuesAuxDb = MongoConnection(serverAddresses("mongotest-shard-0-a:27317|mongotest-shard-0-b:27117|mongotest-shard-0-c:27217"))("foursquare")
-  // lazy val venuesAuxSlaveDb = MongoConnection(serverAddresses("mongotest-shard-0-a:27317|mongotest-shard-0-b:27117|mongotest-shard-0-c:27217"))("foursquare")
-  // lazy val venuesSlaveDb = MongoConnection(serverAddresses("mongotest-shard-0-a:27317|mongotest-shard-0-b:27117|mongotest-shard-0-c:27217"))("foursquare")
-  // lazy val venuesProdSlaveDb = MongoConnection(serverAddresses("mongotest-shard-0-a:27317|mongotest-shard-0-b:27117|mongotest-shard-0-c:27217"))("foursquare")
-  // lazy val hyperVenuesDb = MongoConnection(serverAddresses("mongotest-shard-0-a:27317|mongotest-shard-0-b:27117|mongotest-shard-0-c:27217"))("foursquare")
   lazy val feedsDb = MongoConnection(serverAddress("dev-4:27023"))("foursquare")
   lazy val trendingDb = MongoConnection(serverAddress("dev-3:27021"))("trending")
 }
