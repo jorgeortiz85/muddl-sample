@@ -24,6 +24,13 @@ object MuddlApp {
     val venues: Seq[NiceVenue] = databases.venues.find(nonEmptyVenues, 10)
     val checkins: Seq[Checkin] = databases.checkins.find(MongoDBObject(), 10)
 
+    val venue = venues(0)
+    venue.venuename // Look ma', no .value!
+    venue.addressString // A derived field (from NiceVenue)
+
+    val mutableVenue = venues(0).mutable
+    mutableVenue.twitterName = Some("twitterhandle") // Settings a field
+
     ()
   }
 }
